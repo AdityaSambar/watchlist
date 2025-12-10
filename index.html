@@ -2,19 +2,340 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Watchlist 💕</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles & Color Palette */
+        :root {
+            --growing-pink: #CB748E;
+            --sleeping-pink: #D698AB;
+            --shy-pink: #EEB4DB;
+            --tulipe-leafs: #73986F;
+            --grounding-green: #426E55;
+            --sleeping-green: #2D4839;
+            --light-bg: #F8F5F2;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --shadow: 0 8px 20px rgba(45, 72, 57, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--sleeping-green);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Typography */
+        h1, h2, h3 {
+            color: var(--grounding-green);
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--growing-pink) 0%, var(--grounding-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--sleeping-green);
+        }
+        
+        /* Header & Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(203, 116, 142, 0.2);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--growing-pink);
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--grounding-green);
+        }
+        
+        .logo-text span {
+            color: var(--growing-pink);
+        }
+        
+        nav {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 12px 28px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--growing-pink);
+            color: white;
+            box-shadow: 0 4px 12px rgba(203, 116, 142, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--sleeping-pink);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(203, 116, 142, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: var(--grounding-green);
+            color: white;
+            box-shadow: 0 4px 12px rgba(66, 110, 85, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--tulipe-leafs);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(66, 110, 85, 0.4);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--grounding-green);
+            border: 2px solid var(--grounding-green);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(66, 110, 85, 0.1);
+        }
+        
+        .btn-icon {
+            padding: 10px;
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--sleeping-green);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        /* Features/Options */
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .option-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--growing-pink);
+        }
+        
+        .option-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(45, 72, 57, 0.15);
+        }
+        
+        .option-card.green {
+            border-top-color: var(--grounding-green);
+        }
+        
+        .option-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--growing-pink);
+        }
+        
+        .option-card.green .option-icon {
+            color: var(--grounding-green);
+        }
+        
+        .option-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            color: var(--sleeping-pink);
+            border-top: 1px solid rgba(203, 116, 142, 0.2);
+        }
+        
+        .heart {
+            color: var(--growing-pink);
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.1); }
+            10% { transform: scale(1); }
+            15% { transform: scale(1.1); }
+            20% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            nav {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to Our Watchlist 💕</h1>
-    <p>Hi Aditya and Soumya! Choose what you want to do:</p>
-
-    <button onclick="navigateTo('watchlist.html')">View Watchlist</button>
-    <button onclick="navigateTo('search.html')">Search & Add Movies</button>
-
-    <script>
-        function navigateTo(page) {
-            window.location.href = page;
-        }
-    </script>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-film"></i>
+                </div>
+                <div class="logo-text">Our<span>Watchlist</span></div>
+            </div>
+            <nav>
+                <a href="index.html" class="btn btn-outline">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="watchlist.html" class="btn btn-outline">
+                    <i class="fas fa-list"></i> Watchlist
+                </a>
+                <a href="search.html" class="btn btn-outline">
+                    <i class="fas fa-search"></i> Search
+                </a>
+            </nav>
+        </header>
+        
+        <main>
+            <section class="hero">
+                <h1>Welcome to Our Watchlist <span class="heart">💕</span></h1>
+                <p>Hi Aditya and Soumya! This is your shared space to discover, save, and track movies and TV shows you want to watch together.</p>
+                
+                <div class="hero-buttons">
+                    <a href="watchlist.html" class="btn btn-primary">
+                        <i class="fas fa-list"></i> View Our Watchlist
+                    </a>
+                    <a href="search.html" class="btn btn-secondary">
+                        <i class="fas fa-search-plus"></i> Search & Add New
+                    </a>
+                </div>
+            </section>
+            
+            <section class="options">
+                <div class="option-card">
+                    <div class="option-icon">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <h3>Browse Your Collection</h3>
+                    <p>See all the movies and shows you've saved to watch together. Remove ones you've already watched.</p>
+                    <a href="watchlist.html" class="btn btn-primary">View Watchlist</a>
+                </div>
+                
+                <div class="option-card green">
+                    <div class="option-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Discover New Titles</h3>
+                    <p>Search for movies and TV shows to add to your shared watchlist. Find new things to enjoy together.</p>
+                    <a href="search.html" class="btn btn-secondary">Search Now</a>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>Made with <span class="heart">💕</span> for Aditya & Soumya</p>
+            <p>Your shared watchlist app</p>
+        </footer>
+    </div>
 </body>
 </html>

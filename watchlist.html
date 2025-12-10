@@ -1,220 +1,696 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Our Watchlist 🎞️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Watchlist • Our Watchlist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- Background Gradient --- */
-        body {
-            background: linear-gradient(to right, #DD5E89 0%, #F7BB97 100%);
-            min-height: 100vh;
+        /* Base Styles & Color Palette */
+        :root {
+            --growing-pink: #CB748E;
+            --sleeping-pink: #D698AB;
+            --shy-pink: #EEB4DB;
+            --tulipe-leafs: #73986F;
+            --grounding-green: #426E55;
+            --sleeping-green: #2D4839;
+            --light-bg: #F8F5F2;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --shadow: 0 8px 20px rgba(45, 72, 57, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
             margin: 0;
-            font-family: 'Poppins', sans-serif;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
         }
-
-        /* --- Button Gradient --- */
-        .btn-grad {
-            background-image: linear-gradient(to right, #DD5E89 0%, #F7BB97 51%, #DD5E89 100%);
-            margin: 10px;
-            padding: 15px 45px;
-            text-align: center;
-            text-transform: uppercase;
-            transition: 0.5s;
-            background-size: 200% auto;
-            color: white;
-            box-shadow: 0 0 20px rgba(221, 94, 137, 0.5);
-            border-radius: 10px;
-            border: none;
-            display: inline-block;
-            cursor: pointer;
-            font-weight: bold;
-            letter-spacing: 1px;
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--sleeping-green);
+            min-height: 100vh;
+            line-height: 1.6;
         }
-
-        .btn-grad:hover {
-            background-position: right center;
-            text-decoration: none;
-            color: #fff;
-            transform: scale(1.05);
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
-
-
+        
+        /* Typography */
+        h1, h2, h3 {
+            color: var(--grounding-green);
+            font-weight: 600;
+        }
+        
         h1 {
-            text-align: center;
-            font-size: 2.2em;
-            margin-bottom: 20px;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--growing-pink) 0%, var(--grounding-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
-        .top-bar {
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Header & Navigation */
+        header {
             display: flex;
-            justify-content: center;
-            margin-bottom: 25px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(203, 116, 142, 0.2);
         }
-
-        .top-bar button {
-            background: #ff4b5c;
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--growing-pink);
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--grounding-green);
+        }
+        
+        .logo-text span {
+            color: var(--growing-pink);
+        }
+        
+        nav {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 12px 28px;
+            border-radius: 50px;
             border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.3s;
-            font-weight: bold;
+            transition: var(--transition);
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
         }
-
-        .top-bar button:hover {
-            background: #e63946;
-            transform: scale(1.05);
+        
+        .btn-primary {
+            background-color: var(--growing-pink);
+            color: white;
+            box-shadow: 0 4px 12px rgba(203, 116, 142, 0.3);
         }
-
+        
+        .btn-primary:hover {
+            background-color: var(--sleeping-pink);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(203, 116, 142, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: var(--grounding-green);
+            color: white;
+            box-shadow: 0 4px 12px rgba(66, 110, 85, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--tulipe-leafs);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(66, 110, 85, 0.4);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--grounding-green);
+            border: 2px solid var(--grounding-green);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(66, 110, 85, 0.1);
+        }
+        
+        .btn-danger {
+            background-color: transparent;
+            color: var(--growing-pink);
+            border: 2px solid var(--growing-pink);
+        }
+        
+        .btn-danger:hover {
+            background-color: rgba(203, 116, 142, 0.1);
+        }
+        
+        /* Watchlist Header */
+        .watchlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(115, 152, 111, 0.2);
+        }
+        
+        .watchlist-stats {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--growing-pink);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--tulipe-leafs);
+        }
+        
+        /* Message Display */
+        .message {
+            padding: 2rem;
+            text-align: center;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .message.info {
+            background-color: rgba(115, 152, 111, 0.1);
+            color: var(--tulipe-leafs);
+            border-left: 4px solid var(--tulipe-leafs);
+        }
+        
+        .message.empty {
+            background: linear-gradient(135deg, rgba(203, 116, 142, 0.1) 0%, rgba(115, 152, 111, 0.1) 100%);
+            color: var(--sleeping-green);
+            border-left: 4px solid var(--growing-pink);
+            padding: 3rem;
+        }
+        
+        /* Watchlist Grid */
         .watchlist-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 25px;
-            justify-items: center;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
-
+        
         .movie-card {
-            position: relative;
-            width: 180px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            background-color: white;
+            border-radius: var(--radius);
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
         }
-
+        
         .movie-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(45, 72, 57, 0.15);
         }
-
-        .poster {
+        
+        .movie-poster {
             width: 100%;
-            height: 270px;
+            height: 300px;
             object-fit: cover;
+            display: block;
         }
-
-        .title {
-            padding: 10px;
-            text-align: center;
-            font-size: 1em;
-            background: rgba(191, 126, 218, 0.7);
+        
+        .movie-info {
+            padding: 1rem;
+        }
+        
+        .movie-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--sleeping-green);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
+        
+        .movie-type {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .movie-type.movie {
+            background-color: rgba(203, 116, 142, 0.1);
+            color: var(--growing-pink);
+        }
+        
+        .movie-type.tv {
+            background-color: rgba(66, 110, 85, 0.1);
+            color: var(--grounding-green);
+        }
+        
         .delete-btn {
             position: absolute;
-            top: 8px;
-            right: 8px;
-            background: rgba(255, 0, 0, 0.8);
-            border: none;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            color: white;
-            font-size: 16px;
-            width: 28px;
-            height: 28px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--growing-pink);
+            border: 2px solid var(--growing-pink);
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: var(--transition);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
+        
         .movie-card:hover .delete-btn {
             opacity: 1;
         }
-
+        
         .delete-btn:hover {
-            background: red;
+            background-color: var(--growing-pink);
+            color: white;
+            transform: scale(1.1);
         }
-
-        #message {
+        
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(203, 116, 142, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--growing-pink);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading {
             text-align: center;
-            margin-top: 30px;
-            font-size: 1.1em;
-            color: #ffe082;
+            padding: 3rem;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(203, 116, 142, 0.05) 0%, rgba(115, 152, 111, 0.05) 100%);
+            border-radius: var(--radius);
+            margin: 2rem 0;
+        }
+        
+        .empty-icon {
+            font-size: 4rem;
+            color: var(--sleeping-pink);
+            margin-bottom: 1.5rem;
+        }
+        
+        .empty-state h3 {
+            color: var(--grounding-green);
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state p {
+            color: var(--sleeping-green);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            color: var(--sleeping-pink);
+            border-top: 1px solid rgba(203, 116, 142, 0.2);
+        }
+        
+        .heart {
+            color: var(--growing-pink);
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.1); }
+            10% { transform: scale(1); }
+            15% { transform: scale(1.1); }
+            20% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .watchlist-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+            
+            .watchlist-stats {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .watchlist-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            nav {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
-
 <body>
-    <h1>🎬 Our Watchlist</h1>
-
-    <div class="top-bar">
-        <button class="btn-grad" onclick="window.location.href='index.html'">🏠 Back to Home</button>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-film"></i>
+                </div>
+                <div class="logo-text">Our<span>Watchlist</span></div>
+            </div>
+            <nav>
+                <a href="index.html" class="btn btn-outline">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="watchlist.html" class="btn btn-primary">
+                    <i class="fas fa-list"></i> Watchlist
+                </a>
+                <a href="search.html" class="btn btn-outline">
+                    <i class="fas fa-search"></i> Search
+                </a>
+            </nav>
+        </header>
+        
+        <main>
+            <h1>Our Shared Watchlist</h1>
+            <p>Movies and shows you and Soumya plan to watch together.</p>
+            
+            <div class="watchlist-header">
+                <div class="watchlist-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="totalCount">0</div>
+                        <div class="stat-label">Total Items</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="movieCount">0</div>
+                        <div class="stat-label">Movies</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="tvCount">0</div>
+                        <div class="stat-label">TV Shows</div>
+                    </div>
+                </div>
+                
+                <a href="search.html" class="btn btn-secondary">
+                    <i class="fas fa-plus"></i> Add More
+                </a>
+            </div>
+            
+            <div id="message" class="message info">
+                Loading your watchlist...
+            </div>
+            
+            <div id="watchlistContainer" class="watchlist-grid">
+                <!-- Watchlist items will be inserted here -->
+            </div>
+            
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Loading your watchlist...</p>
+            </div>
+            
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-icon">
+                    <i class="fas fa-film"></i>
+                </div>
+                <h3>Your watchlist is empty</h3>
+                <p>Start adding movies and TV shows you want to watch together. Browse our collection or search for new titles to add to your shared list.</p>
+                <a href="search.html" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Browse & Add Titles
+                </a>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Made with <span class="heart">💕</span> for Aditya & Soumya</p>
+            <p>Your shared watchlist • <span id="lastUpdated">Loading...</span></p>
+        </footer>
     </div>
-
-    <div class="watchlist-grid" id="watchlistContainer"></div>
-    <p id="message"></p>
-
+    
     <script>
         const apiUrl = "https://watchlistapp-bk70.onrender.com/watchlist/all";
         const deleteUrl = "https://watchlistapp-bk70.onrender.com/watchlist/delete/";
-
+        
+        // DOM Elements
+        const watchlistContainer = document.getElementById('watchlistContainer');
+        const messageEl = document.getElementById('message');
+        const loadingEl = document.getElementById('loading');
+        const emptyStateEl = document.getElementById('emptyState');
+        const totalCountEl = document.getElementById('totalCount');
+        const movieCountEl = document.getElementById('movieCount');
+        const tvCountEl = document.getElementById('tvCount');
+        const lastUpdatedEl = document.getElementById('lastUpdated');
+        
+        // Load watchlist
         async function loadWatchlist() {
             try {
+                // Show loading
+                loadingEl.style.display = 'block';
+                messageEl.style.display = 'none';
+                emptyStateEl.style.display = 'none';
+                watchlistContainer.innerHTML = '';
+                
                 const res = await fetch(apiUrl);
+                
+                if (!res.ok) {
+                    throw new Error(`Failed to fetch watchlist: ${res.status}`);
+                }
+                
                 const movies = await res.json();
-                const container = document.getElementById("watchlistContainer");
-                const message = document.getElementById("message");
-
-                container.innerHTML = "";
-                message.textContent = "";
-
+                
+                // Hide loading
+                loadingEl.style.display = 'none';
+                
+                // Update last updated time
+                const now = new Date();
+                lastUpdatedEl.textContent = `Last updated: ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+                
+                // Check if watchlist is empty
                 if (!movies || movies.length === 0) {
-                    message.textContent = "WHY SO EMPTYYYY :(";
+                    emptyStateEl.style.display = 'block';
+                    messageEl.style.display = 'none';
+                    updateStats(0, 0, 0);
                     return;
                 }
-
-                movies.forEach(movie => {
-                    const card = document.createElement("div");
-                    card.classList.add("movie-card");
-
-                    const poster = document.createElement("img");
-                    poster.classList.add("poster");
-                    poster.src = `https://image.tmdb.org/t/p/w200${movie.posterPath}`;
-                    poster.alt = movie.title;
-
-                    const title = document.createElement("div");
-                    title.classList.add("title");
-                    title.textContent = movie.title;
-                    title.title = movie.title; // <-- This shows full name on hover
-
-                    const deleteBtn = document.createElement("button");
-                    deleteBtn.classList.add("delete-btn");
-                    deleteBtn.innerHTML = "&times;";
-                    deleteBtn.onclick = async () => {
-                        await deleteMovie(movie.tmdbId, card);        
-                    };
-
-                    card.appendChild(deleteBtn);
-                    card.appendChild(poster);
-                    card.appendChild(title);
-                    container.appendChild(card);
+                
+                // Update stats
+                const movieCount = movies.filter(m => m.mediaType === 'movie' || !m.mediaType).length;
+                const tvCount = movies.filter(m => m.mediaType === 'tv').length;
+                updateStats(movies.length, movieCount, tvCount);
+                
+                // Display watchlist items (most recent first)
+                movies.reverse().forEach(movie => {
+                    const card = createWatchlistCard(movie);
+                    watchlistContainer.appendChild(card);
                 });
+                
+                messageEl.style.display = 'none';
+                
             } catch (err) {
-                console.error("Error fetching watchlist:", err);
-                document.getElementById("message").textContent = "⚠️ Unable to load watchlist.";
+                console.error('Error fetching watchlist:', err);
+                loadingEl.style.display = 'none';
+                messageEl.textContent = 'Unable to load watchlist. Please try again.';
+                messageEl.style.display = 'block';
+                messageEl.className = 'message info';
             }
         }
-
+        
+        // Create watchlist card
+        function createWatchlistCard(movie) {
+            const card = document.createElement('div');
+            card.className = 'movie-card';
+            card.dataset.id = movie.tmdbId;
+            
+            const posterUrl = movie.posterPath 
+                ? `https://image.tmdb.org/t/p/w300${movie.posterPath}`
+                : 'https://via.placeholder.com/300x450?text=No+Image';
+            
+            const title = movie.title;
+            const mediaType = movie.mediaType || 'movie';
+            const typeClass = mediaType === 'movie' ? 'movie' : 'tv';
+            const typeLabel = mediaType === 'movie' ? 'Movie' : 'TV Show';
+            
+            card.innerHTML = `
+                <img src="${posterUrl}" alt="${title}" class="movie-poster" loading="lazy">
+                <div class="movie-info">
+                    <span class="movie-type ${typeClass}">${typeLabel}</span>
+                    <h3 class="movie-title" title="${title}">${title}</h3>
+                </div>
+                <button class="delete-btn" title="Remove from watchlist">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            // Add click event to delete button
+            const deleteBtn = card.querySelector('.delete-btn');
+            deleteBtn.addEventListener('click', async () => {
+                await deleteMovie(movie.tmdbId, card);
+            });
+            
+            return card;
+        }
+        
+        // Delete movie from watchlist
         async function deleteMovie(tmdbId, card) {
+            if (!confirm('Remove this title from your watchlist?')) {
+                return;
+            }
+            
             try {
-                const res = await fetch(deleteUrl + tmdbId, { method: "DELETE" });
+                const res = await fetch(`${deleteUrl}${tmdbId}`, { 
+                    method: "DELETE" 
+                });
+                
                 if (res.ok) {
-                    card.remove();
+                    // Animate removal
+                    card.style.transform = 'scale(0.9)';
+                    card.style.opacity = '0.5';
+                    
+                    setTimeout(() => {
+                        card.remove();
+                        
+                        // Reload watchlist to update stats
+                        loadWatchlist();
+                        
+                        // Show success message
+                        showTemporaryMessage('Removed from watchlist!', 'info');
+                    }, 300);
+                    
                 } else {
-                    alert("❌ Failed to delete movie.");
+                    showTemporaryMessage('Failed to remove item. Please try again.', 'info');
                 }
             } catch (err) {
-                console.error("Delete error:", err);
+                console.error('Delete error:', err);
+                showTemporaryMessage('Network error. Please try again.', 'info');
             }
         }
-
-        loadWatchlist();
+        
+        // Update statistics
+        function updateStats(total, movies, tvShows) {
+            totalCountEl.textContent = total;
+            movieCountEl.textContent = movies;
+            tvCountEl.textContent = tvShows;
+            
+            // Animate the number changes
+            animateValue(totalCountEl, 0, total, 500);
+            animateValue(movieCountEl, 0, movies, 500);
+            animateValue(tvCountEl, 0, tvShows, 500);
+        }
+        
+        // Animate number counting
+        function animateValue(element, start, end, duration) {
+            if (start === end) return;
+            
+            const range = end - start;
+            const startTime = Date.now();
+            const endTime = startTime + duration;
+            
+            function updateNumber() {
+                const now = Date.now();
+                const progress = Math.min((now - startTime) / duration, 1);
+                const value = Math.floor(start + (range * progress));
+                element.textContent = value;
+                
+                if (now < endTime) {
+                    requestAnimationFrame(updateNumber);
+                }
+            }
+            
+            updateNumber();
+        }
+        
+        // Show temporary message
+        function showTemporaryMessage(text, type = 'info') {
+            const tempMessage = document.createElement('div');
+            tempMessage.className = `message ${type}`;
+            tempMessage.textContent = text;
+            tempMessage.style.position = 'fixed';
+            tempMessage.style.top = '20px';
+            tempMessage.style.right = '20px';
+            tempMessage.style.zIndex = '1000';
+            tempMessage.style.maxWidth = '300px';
+            tempMessage.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            
+            document.body.appendChild(tempMessage);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                tempMessage.style.opacity = '0';
+                tempMessage.style.transform = 'translateX(100px)';
+                setTimeout(() => {
+                    document.body.removeChild(tempMessage);
+                }, 300);
+            }, 3000);
+        }
+        
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            loadWatchlist();
+            
+            // Refresh watchlist every 30 seconds (optional)
+            setInterval(loadWatchlist, 30000);
+        });
     </script>
 </body>
-
 </html>
